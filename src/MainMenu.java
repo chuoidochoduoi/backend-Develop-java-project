@@ -1,4 +1,5 @@
 import Model.Phone;
+import Service.CustomerDao;
 import Service.ProductDao;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class MainMenu {
 
     static Scanner sc = new Scanner(System.in);
     static ProductDao productDao = new ProductDao();
+    static CustomerDao customerDao = new CustomerDao();
     public static void main(String[] args) {
 
         int choice;
@@ -229,40 +231,125 @@ public class MainMenu {
         } while (choice != 0);
     }
 
-    public static void menuCustomer() {
+    public static void menuCustomer(){
 
         int choice;
 
         do {
-            System.out.println("\n--- MENU KHÁCH HÀNG ---");
+
+            System.out.println("\n--- MENU QUẢN LÝ KHÁCH HÀNG ---");
             System.out.println("1. Thêm khách hàng");
             System.out.println("2. Hiển thị khách hàng");
-            System.out.println("0. Quay về menu chính");
-            System.out.print("Nhập lựa chọn: ");
+            System.out.println("3. Update khách hàng");
+            System.out.println("4. Xóa khách hàng");
+            System.out.println("0. Quay lại");
 
-            while (!sc.hasNextInt()) {
-                System.out.println("Lỗi: Vui lòng nhập số!");
-                sc.next();
-                System.out.print("Nhập lại: ");
-            }
+            System.out.print("Nhập lựa chọn: ");
 
             choice = sc.nextInt();
             sc.nextLine();
-            switch (choice) {
+
+            switch(choice){
+
                 case 1:
-                    System.out.println("Chức năng thêm khách hàng");
+
+                    System.out.println("\n--- THÊM KHÁCH HÀNG ---");
+
+                    System.out.print("Nhập tên: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Nhập phone: ");
+                    String phone = sc.nextLine();
+
+                    System.out.print("Nhập email: ");
+                    String email = sc.nextLine();
+
+                    System.out.print("Nhập address: ");
+                    String address = sc.nextLine();
+
+                    customerDao.insertCustomer(name,phone,email,address);
+
+                    System.out.println("Thêm khách hàng thành công");
+
                     break;
+
                 case 2:
-                    System.out.println("Chức năng hiển thị khách hàng");
+
+                    System.out.println("\n--- DANH SÁCH KHÁCH HÀNG ---");
+
+                    customerDao.getAllCustomer();
+
                     break;
-                case 0:
-                    System.out.println("Quay về menu chính");
+
+                case 3:
+
+                    System.out.println("\n--- UPDATE KHÁCH HÀNG ---");
+
+                    System.out.print("Nhập ID: ");
+
+                    int id = sc.nextInt();
+                    sc.nextLine();
+
+                    while(!customerDao.checkCustomer(id)){
+
+                        System.out.print("ID không tồn tại, nhập lại: ");
+
+                        id = sc.nextInt();
+                        sc.nextLine();
+                    }
+
+                    System.out.print("Nhập tên mới: ");
+                    String nameU = sc.nextLine();
+
+                    System.out.print("Nhập phone mới: ");
+                    String phoneU = sc.nextLine();
+
+                    System.out.print("Nhập email mới: ");
+                    String emailU = sc.nextLine();
+
+                    System.out.print("Nhập address mới: ");
+                    String addressU = sc.nextLine();
+
+                    customerDao.updateCustomer(id,nameU,phoneU,emailU,addressU);
+
+                    System.out.println("Update thành công");
+
                     break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ!");
+
+                case 4:
+
+                    System.out.println("\n--- XÓA KHÁCH HÀNG ---");
+
+                    System.out.print("Nhập ID: ");
+
+                    int idDelete = sc.nextInt();
+                    sc.nextLine();
+
+                    while(!customerDao.checkCustomer(idDelete)){
+
+                        System.out.print("ID không tồn tại, nhập lại: ");
+
+                        idDelete = sc.nextInt();
+                        sc.nextLine();
+                    }
+
+                    System.out.print("Bạn chắc chắn muốn xóa? (1.Yes / 0.No): ");
+
+                    int confirm = sc.nextInt();
+
+                    if(confirm == 1){
+
+                        customerDao.deleteCustomer(idDelete);
+
+                        System.out.println("Xóa thành công");
+                    }
+
+                    break;
+
             }
 
-        } while (choice != 0);
+        }while(choice != 0);
+
     }
 
     public static void menuInvoice() {
