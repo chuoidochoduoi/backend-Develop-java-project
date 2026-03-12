@@ -1,9 +1,14 @@
-package Service;
+package dao.impl;
+
+import dao.ICustomerDAO;
+import dao.IProductDAO;
+import utils.DBConnection;
 
 import java.sql.*;
 
-public class CustomerDao {
+public class CustomerDao implements ICustomerDAO {
 
+   @Override
     public void insertCustomer(String name, String phone, String email, String address){
 
         String sql = "INSERT INTO customer(name, phone, email, address) VALUES (?, ?, ?, ?)";
@@ -23,6 +28,7 @@ public class CustomerDao {
             e.printStackTrace();
         }
     }
+    @Override
 
     public void getAllCustomer(){
 
@@ -51,7 +57,7 @@ public class CustomerDao {
             e.printStackTrace();
         }
     }
-
+    @Override
     public boolean checkCustomer(int id){
 
         String sql = "SELECT * FROM customer WHERE id=?";
@@ -71,6 +77,7 @@ public class CustomerDao {
 
         return false;
     }
+    @Override
 
     public void updateCustomer(int id,String name,String phone,String email,String address){
 
@@ -92,6 +99,7 @@ public class CustomerDao {
             e.printStackTrace();
         }
     }
+    @Override
 
     public void deleteCustomer(int id){
 

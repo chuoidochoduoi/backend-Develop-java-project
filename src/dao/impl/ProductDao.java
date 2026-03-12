@@ -1,10 +1,12 @@
-package Service;
+package dao.impl;
 
-import Model.Phone;
+import dao.IProductDAO;
+import utils.DBConnection;
 
 import java.sql.*;
 
-public class ProductDao {
+public class ProductDao implements IProductDAO {
+    @Override
 
     public void insertProduct(String name, String brand, double price, int stock) {
         String sql = "INSERT INTO product(name, brand, price, stock) VALUES (?, ?, ?, ?)";
@@ -27,6 +29,8 @@ public class ProductDao {
             e.printStackTrace();
         }
     }
+    @Override
+
     public void getAllProduct(){
 
 
@@ -55,6 +59,7 @@ public class ProductDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
 
     public boolean checkProduct(int id){
 
@@ -76,6 +81,8 @@ public class ProductDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
+
     public void updateProduct(int id,String name, String brand, double price, int stock) {
         String sql = "UPDATE product SET name=?, brand=?, price=?, stock=? WHERE id=?";
 
@@ -113,6 +120,7 @@ public class ProductDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
 
     public void getProductByPrice(double priceStart, double priceEnd){
 
@@ -145,6 +153,7 @@ public class ProductDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
 
     public void getProductByBrand(String brand){
 
@@ -176,6 +185,7 @@ public class ProductDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
 
     public void getProductByName(String name){
 

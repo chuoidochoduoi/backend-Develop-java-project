@@ -1,16 +1,17 @@
-import Model.Phone;
-import Service.CustomerDao;
-import Service.ProductDao;
+package presentation;
 
-import java.util.ArrayList;
-import java.util.List;
+import business.impl.ProductServiceImpl;
+import business.impl.CustomerServiceImpl;
+import business.impl.InvoiceServiceImpl;
+
 import java.util.Scanner;
 
 public class MainMenu {
 
     static Scanner sc = new Scanner(System.in);
-    static ProductDao productDao = new ProductDao();
-    static CustomerDao customerDao = new CustomerDao();
+    static ProductServiceImpl productDao = new ProductServiceImpl();
+    static CustomerServiceImpl customerDao = new CustomerServiceImpl();
+    static InvoiceServiceImpl invoiceDao = new InvoiceServiceImpl();
     public static void main(String[] args) {
 
         int choice;
@@ -351,38 +352,88 @@ public class MainMenu {
         }while(choice != 0);
 
     }
-
     public static void menuInvoice() {
 
         int choice;
 
         do {
+
             System.out.println("\n--- MENU HÓA ĐƠN ---");
             System.out.println("1. Tạo hóa đơn");
-            System.out.println("2. Hiển thị hóa đơn");
-            System.out.println("0. Quay về menu chính");
-            System.out.print("Nhập lựa chọn: ");
-
-            while (!sc.hasNextInt()) {
-                System.out.println("Lỗi: Vui lòng nhập số!");
-                sc.next();
-                System.out.print("Nhập lại: ");
-            }
+            System.out.println("2. Hiển thị danh sách hóa đơn");
+            System.out.println("3. Tìm kiếm hóa đơn");
+            System.out.println("4. Thống kê doanh thu");
+            System.out.println("0. Quay lại");
 
             choice = sc.nextInt();
             sc.nextLine();
+
             switch (choice) {
+
                 case 1:
-                    System.out.println("Chức năng tạo hóa đơn");
+
+                    System.out.print("Nhập Customer ID: ");
+                    int customerId = sc.nextInt();
+
+                    System.out.print("Nhập tổng tiền: ");
+                    double total = sc.nextDouble();
+
+                    invoiceDao.insertInvoice(customerId, total);
+
                     break;
+
                 case 2:
-                    System.out.println("Chức năng hiển thị hóa đơn");
+
+                    invoiceDao.getAllInvoice();
+
                     break;
-                case 0:
-                    System.out.println("Quay về menu chính");
+
+                case 3:
+
+                    System.out.println("""
+                        1. Tìm theo tên khách
+                        2. Tìm theo ngày
+                        """);
+
+                    int searchChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    if (searchChoice == 1) {
+
+                        System.out.print("Nhập tên: ");
+                        String name = sc.nextLine();
+
+                        invoiceDao.searchByCustomerName(name);
+
+                    } else if (searchChoice == 2) {
+
+                        System.out.print("Nhập ngày (yyyy-mm-dd): ");
+                        String date = sc.nextLine();
+
+                        invoiceDao.searchByDate(date);
+
+                    }
+
                     break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ!");
+
+                case 4:
+
+                    System.out.println("""
+                        1. Doanh thu theo ngày
+                        2. Doanh thu theo tháng
+                        3. Doanh thu theo năm
+                        """);
+
+                    int revChoice = sc.nextInt();
+
+                    if (revChoice == 1)
+                        invoiceDao.revenueByDay();
+                    else if (revChoice == 2)
+                        invoiceDao.revenueByMonth();
+                    else if (revChoice == 3)
+                        invoiceDao.revenueByYear();
+
+                    break;
             }
 
         } while (choice != 0);
