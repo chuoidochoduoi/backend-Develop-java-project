@@ -1,14 +1,17 @@
 package dao;
 
+import Model.Phone;
+
 public interface IProductDAO {
 
-    void insertProduct(String name, String brand, double price, int stock);
+    void insertProduct(Phone phone);
 
     void getAllProduct();
+    boolean updateProductQuantity(int productId, int stock);
+    Phone getProductById(int id);
+    boolean existsProductById(int id);
 
-    boolean checkProduct(int id);
-
-    void updateProduct(int id,String name,String brand,double price,int stock);
+    void updateProduct(Phone phone);
 
     void deleteProduct(int id);
 

@@ -1,5 +1,6 @@
 package business.impl;
 
+import Model.Phone;
 import business.IProductService;
 import dao.IProductDAO;
 import dao.impl.ProductDao;
@@ -8,9 +9,10 @@ public class ProductServiceImpl implements IProductService {
 
     IProductDAO productDAO = new ProductDao();
     @Override
+    public void insertProduct(Phone phone){
 
-    public void insertProduct(String name,String brand,double price,int stock){
-        productDAO.insertProduct(name,brand,price,stock);
+
+        productDAO.insertProduct(phone);
     }
     @Override
 
@@ -19,13 +21,23 @@ public class ProductServiceImpl implements IProductService {
     }
     @Override
 
-    public boolean checkProduct(int id){
-        return productDAO.checkProduct(id);
+    public boolean existsProductById(int id){
+        return productDAO.existsProductById(id);
     }
-    @Override
 
-    public void updateProduct(int id,String name,String brand,double price,int stock){
-        productDAO.updateProduct(id,name,brand,price,stock);
+    @Override
+    public boolean updateProductQuantity(int productId, int stock) {
+        return productDAO.updateProductQuantity(productId,stock);
+    }
+
+    @Override
+    public Phone getProductById(int id) {
+        return productDAO.getProductById(id);
+    }
+
+    @Override
+    public void updateProduct(Phone phone){
+        productDAO.updateProduct(phone);
     }
     @Override
 

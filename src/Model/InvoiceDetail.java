@@ -1,4 +1,6 @@
-package model;
+package Model;
+
+import static Validator.InputValidator.inputInt;
 
 public class InvoiceDetail {
 
@@ -33,4 +35,15 @@ public class InvoiceDetail {
     public double getPrice(){ return price;}
     public void setPrice(double price){ this.price=price;}
 
+
+    public void Input(double priceProduct){
+
+        System.out.println("nhap số lượng");
+
+        quantity = inputInt();
+        System.out.println("nhap giá ");
+
+        price = priceProduct;
+
+    }
 }

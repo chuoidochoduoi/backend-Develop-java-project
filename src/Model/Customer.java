@@ -1,5 +1,7 @@
 package Model;
 
+import static Validator.InputValidator.inputString;
+
 public class Customer {
 
     private int id;
@@ -56,5 +58,36 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void Input(){
+        System.out.print("Nhập tên: ");
+         name = inputString();
+
+        while (true) {
+            System.out.print("Nhập phone: ");
+            phone = inputString();
+
+            if (phone.matches("\\d{9,11}")) {
+                break;
+            } else {
+                System.out.println("Số điện thoại phải là 9-11 chữ số!");
+            }
+        }
+
+        // email
+        while (true) {
+            System.out.print("Nhập email: ");
+            email = inputString();
+
+            if (email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                break;
+            } else {
+                System.out.println("Email không đúng định dạng!");
+            }
+        }
+
+        System.out.print("Nhập address: ");
+         address = inputString();
     }
 }

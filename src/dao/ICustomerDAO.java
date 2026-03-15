@@ -1,14 +1,16 @@
 package dao;
 
+import Model.Customer;
+
 public interface ICustomerDAO {
 
-    void insertCustomer(String name,String phone,String email,String address);
+    void insertCustomer(Customer customer);
 
     void getAllCustomer();
 
-    boolean checkCustomer(int id);
+    boolean existsCustomerById(int id);
 
-    void updateCustomer(int id,String name,String phone,String email,String address);
+    void updateCustomer(Customer customer);
 
     void deleteCustomer(int id);
 }

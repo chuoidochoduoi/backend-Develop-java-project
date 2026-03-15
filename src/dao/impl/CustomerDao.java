@@ -1,15 +1,18 @@
 package dao.impl;
 
+import Model.Customer;
 import dao.ICustomerDAO;
 import dao.IProductDAO;
 import utils.DBConnection;
 
 import java.sql.*;
 
+import static utils.TablePrinter.printCustomerTable;
+
 public class CustomerDao implements ICustomerDAO {
 
    @Override
-    public void insertCustomer(String name, String phone, String email, String address){
+    public void insertCustomer(Customer customer){
 
         String sql = "INSERT INTO customer(name, phone, email, address) VALUES (?, ?, ?, ?)";
 
@@ -17,10 +20,10 @@ public class CustomerDao implements ICustomerDAO {
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1,name);
-            ps.setString(2,phone);
-            ps.setString(3,email);
-            ps.setString(4,address);
+            ps.setString(1,customer.getName());
+            ps.setString(2,customer.getPhone());
+            ps.setString(3,customer.getEmail());
+            ps.setString(4,customer.getAddress());
 
             ps.executeUpdate();
 
@@ -39,26 +42,14 @@ public class CustomerDao implements ICustomerDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            System.out.printf("%-5s %-20s %-15s %-25s %-20s\n",
-                    "ID","NAME","PHONE","EMAIL","ADDRESS");
-
-            while(rs.next()){
-
-                System.out.printf("%-5d %-20s %-15s %-25s %-20s\n",
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
-                );
-            }
+            printCustomerTable(rs);
 
         }catch(Exception e){
             e.printStackTrace();
         }
     }
     @Override
-    public boolean checkCustomer(int id){
+    public boolean existsCustomerById(int id){
 
         String sql = "SELECT * FROM customer WHERE id=?";
 
@@ -79,7 +70,7 @@ public class CustomerDao implements ICustomerDAO {
     }
     @Override
 
-    public void updateCustomer(int id,String name,String phone,String email,String address){
+    public void updateCustomer(Customer customer){
 
         String sql = "UPDATE customer SET name=?, phone=?, email=?, address=? WHERE id=?";
 
@@ -87,11 +78,11 @@ public class CustomerDao implements ICustomerDAO {
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1,name);
-            ps.setString(2,phone);
-            ps.setString(3,email);
-            ps.setString(4,address);
-            ps.setInt(5,id);
+            ps.setString(1,customer.getName());
+            ps.setString(2,customer.getPhone());
+            ps.setString(3,customer.getEmail());
+            ps.setString(4,customer.getAddress());
+            ps.setInt(5,customer.getId());
 
             ps.executeUpdate();
 

@@ -1,17 +1,27 @@
 package business.impl;
 
+import Model.Invoice;
 import business.IInvoiceService;
 import dao.IInvoiceDAO;
 import dao.impl.InvoiceDao;
+
+import java.time.LocalDate;
+import java.util.Locale;
 
 public class InvoiceServiceImpl implements IInvoiceService {
 
     IInvoiceDAO invoiceDAO = new InvoiceDao();
     @Override
 
-    public void insertInvoice(int customerId,double totalAmount){
-        invoiceDAO.insertInvoice(customerId,totalAmount);
+    public void insertInvoice(Invoice invoice){
+        invoiceDAO.insertInvoice(invoice);
     }
+
+    @Override
+    public boolean existsInvoiceById(int id) {
+        return invoiceDAO.existsInvoiceById(id);
+    }
+
     @Override
 
     public void getAllInvoice(){
@@ -24,7 +34,7 @@ public class InvoiceServiceImpl implements IInvoiceService {
     }
     @Override
 
-    public void searchByDate(String date){
+    public void searchByDate(LocalDate date){
         invoiceDAO.searchByDate(date);
     }
     @Override
@@ -42,4 +52,11 @@ public class InvoiceServiceImpl implements IInvoiceService {
     public void revenueByYear(){
         invoiceDAO.revenueByYear();
     }
+
+
+    @Override
+    public int getLastInvoiceId() {
+        return invoiceDAO.getLastInvoiceId();
+    }
+
 }

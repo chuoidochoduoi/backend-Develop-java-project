@@ -44,3 +44,5 @@ CREATE TABLE invoice_details (
                                  FOREIGN KEY (invoice_id) REFERENCES invoice(id),
                                  FOREIGN KEY (product_id) REFERENCES product(id)
 );
+
+insert into admin(username, password) VALUES ('cuong2','123456')

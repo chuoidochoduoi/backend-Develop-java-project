@@ -1,13 +1,19 @@
 package business;
 
+import Model.Phone;
+
 public interface  IProductService {
-    void insertProduct(String name,String brand,double price,int stock);
+
+    void insertProduct(Phone phone);
 
     void getAllProduct();
 
-    boolean checkProduct(int id);
+    boolean existsProductById(int id);
 
-    void updateProduct(int id,String name,String brand,double price,int stock);
+    boolean updateProductQuantity(int productId, int stock);
+    Phone getProductById(int id);
+
+    void updateProduct(Phone phone);
 
     void deleteProduct(int id);
 
