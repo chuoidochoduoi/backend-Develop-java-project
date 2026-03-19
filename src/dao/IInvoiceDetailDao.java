@@ -10,6 +10,7 @@ public interface IInvoiceDetailDao {
 
     void deleteInvoiceDetailByInvoiceId(int id);
 
+    void deleteInvoiceDetailByProductId(int id);
 
     boolean isProductInInvoice(int productId);
 }
