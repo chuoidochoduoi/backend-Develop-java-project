@@ -1,6 +1,9 @@
 package presentation;
 
+import Model.InvoiceDetail;
 import Model.Phone;
+import business.IInvoiceDetailService;
+import business.impl.IIvoiceDetailSerivceImpI;
 import business.impl.ProductServiceImpl;
 
 import java.util.Scanner;
@@ -13,7 +16,9 @@ import static utils.TablePrinter.printProductTable;
 
 public class ProductMenu {
 
-    public  ProductServiceImpl productDao = new ProductServiceImpl();
+    public  ProductServiceImpl productService = new ProductServiceImpl();
+
+    public IIvoiceDetailSerivceImpI detailService = new IIvoiceDetailSerivceImpI();
 
     public void menuProduct() {
 
@@ -43,7 +48,7 @@ public class ProductMenu {
                     System.out.println("\n--- THÊM SẢN PHẨM ĐIỆN THOẠI ---");
 
                     phone.input();
-                    productDao.insertProduct(phone);
+                    productService.insertProduct(phone);
                     System.out.println("Thêm sản phẩm thành công!");
                     break;
                 case 2:
@@ -51,7 +56,7 @@ public class ProductMenu {
                     System.out.println("\n--- hiện thị SẢN PHẨM ĐIỆN THOẠI ---");
 
 
-                    productDao.getAllProduct();
+                    productService.getAllProduct();
 
 
                     break;
@@ -61,7 +66,7 @@ public class ProductMenu {
                     int id3 = inputInt();
 
 
-                    while (!productDao.existsProductById(id3)) {
+                    while (!productService.existsProductById(id3)) {
 
                         System.out.print("ID không tồn tại, nhập lại: ");
 
@@ -70,19 +75,30 @@ public class ProductMenu {
 
                     phone.setId(id3);
                     phone.input();
-                    productDao.updateProduct(phone);
+                    productService.updateProduct(phone);
 
                     break;
                 case 4:
                     System.out.println("\n--- xóa SẢN PHẨM ĐIỆN THOẠI ---");
 
+                    int id4 ;
+                    while (true) {
+                        System.out.print("Nhập product ID cần xóa: ");
+                        id4 = inputInt();
+
+                        if (detailService.isProductInInvoice(id4)) {
+                            System.out.println("Product đã tồn tại trong invoice, không thể xóa. Nhập lại!");
+                        } else {
+                            break;
+                        }
+                    }
 
                     System.out.println("Điền id product");
 
-                    int id4 = inputInt();
 
 
-                    while (!productDao.existsProductById(id4)) {
+
+                    while (!productService.existsProductById(id4)) {
 
                         System.out.print("ID không tồn tại, nhập lại: ");
 
@@ -90,7 +106,7 @@ public class ProductMenu {
                     }
 
                     if (confirmDelete()) {
-                        productDao.deleteProduct(id4);
+                        productService.deleteProduct(id4);
                         System.out.println("Xóa thành công");
                     } else {
                         System.out.println("Xóa thất bại");
@@ -116,7 +132,9 @@ public class ProductMenu {
                         switch (inputInt()) {
 
                             case 1:
-                                productDao.getProductByBrand(inputString());
+                                System.out.println("Điền brand name");
+
+                                productService.getProductByBrand(inputString());
                                 break;
 
                             case 2:
@@ -126,13 +144,13 @@ public class ProductMenu {
 
                                 double end  =inputDouble();
 
-                                productDao.getProductByPrice(first, end);
+                                productService.getProductByPrice(first, end);
                                 break;
 
                             case 3:
                                 System.out.print("Nhập tên: ");
 
-                                productDao.getProductByName(inputString());
+                                productService.getProductByName(inputString());
                                 break;
 
                             case 0:

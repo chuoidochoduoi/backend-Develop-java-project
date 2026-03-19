@@ -23,4 +23,6 @@ public interface IInvoiceService {
     void revenueByYear();
 
     int getLastInvoiceId();
+
+
 }

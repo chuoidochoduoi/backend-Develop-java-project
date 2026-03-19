@@ -1,8 +1,5 @@
 package presentation;
 
-import business.impl.ProductServiceImpl;
-import business.impl.CustomerServiceImpl;
-import business.impl.InvoiceServiceImpl;
 
 import java.util.Scanner;
 
@@ -50,8 +47,9 @@ public class MainMenu {
                 case 3:
                     invoiceMenu.menuInvoice();
                     break;
+
                 case 0:
-                    System.out.println("Thoát chương trình.");
+                    System.out.println("Thoát .");
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ, vui lòng nhập lại!");

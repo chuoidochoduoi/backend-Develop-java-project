@@ -233,4 +233,23 @@ public class InvoiceDao implements IInvoiceDAO {
         return -1;
     }
 
+    public void deleteInvoiceByCustomerId(int id){
+
+        String sql = "DELETE FROM invoice WHERE customer_id=?";
+
+        try(Connection conn = DBConnection.getConnection()){
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1,id);
+
+            ps.executeUpdate();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

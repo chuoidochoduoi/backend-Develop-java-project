@@ -84,6 +84,7 @@ public class CustomerMenu {
 
                     System.out.print("Nhập ID: ");
 
+
                     int idDelete = inputInt();
 
 
@@ -94,6 +95,7 @@ public class CustomerMenu {
                         idDelete = inputInt();
                     }
 
+                    System.out.println("nếu xóa thì sẽ xóa hết tất cả invoice liên quan đến customer");
 
                     if (confirmDelete()) {
                         customerDao.deleteCustomer(idDelete);

@@ -54,6 +54,7 @@ public class InvoiceServiceImpl implements IInvoiceService {
     }
 
 
+
     @Override
     public int getLastInvoiceId() {
         return invoiceDAO.getLastInvoiceId();

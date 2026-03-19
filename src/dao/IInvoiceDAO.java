@@ -23,4 +23,6 @@ public interface IInvoiceDAO {
     void revenueByYear();
 
     int getLastInvoiceId();
+
+    void deleteInvoiceByCustomerId(int id);
 }

@@ -3,11 +3,20 @@ package business.impl;
 import Model.Customer;
 import business.ICustomerService;
 import dao.ICustomerDAO;
+import dao.IInvoiceDAO;
 import dao.impl.CustomerDao;
+import dao.impl.InvoiceDao;
+import dao.impl.InvoiceDetailDao;
 
 public class CustomerServiceImpl implements ICustomerService {
 
     ICustomerDAO customerDAO = new CustomerDao();
+
+    IInvoiceDAO invoiceDAO = new InvoiceDao();
+
+    InvoiceDetailDao invoiceDetail =new InvoiceDetailDao();
+
+
     @Override
 
     public void insertCustomer(Customer customer){
@@ -31,6 +40,14 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
 
     public void deleteCustomer(int id){
+
+
+        invoiceDetail.deleteInvoiceDetailByInvoiceId(id);
+
+        invoiceDAO.deleteInvoiceByCustomerId(id);
+
+
+
         customerDAO.deleteCustomer(id);
     }
 }

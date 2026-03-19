@@ -2,11 +2,12 @@ package business.impl;
 
 import Model.Phone;
 import business.IProductService;
+import dao.IInvoiceDetailDao;
 import dao.IProductDAO;
+import dao.impl.InvoiceDetailDao;
 import dao.impl.ProductDao;
 
 public class ProductServiceImpl implements IProductService {
-
     IProductDAO productDAO = new ProductDao();
     @Override
     public void insertProduct(Phone phone){
@@ -42,6 +43,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
 
     public void deleteProduct(int id){
+
         productDAO.deleteProduct(id);
     }
 

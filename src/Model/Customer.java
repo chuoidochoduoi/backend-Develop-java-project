@@ -75,7 +75,6 @@ public class Customer {
             }
         }
 
-        // email
         while (true) {
             System.out.print("Nhập email: ");
             email = inputString();
